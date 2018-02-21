@@ -1,0 +1,21 @@
+<div class="card" style="border-radius: 10px;overflow: hidden;">
+    <div class="project-head">
+        <a href="{{ path('advice_detail', {'id': id}) }}">
+            <img class="img-fluid" src="{{ statfolder }}{{ img }}" style="width:100%;height: 130px;">
+        </a>
+    </div>
+    <div class="card-block">
+        <h5 class="card-title"
+            style="height: 45px">{% if title|length > 40 %}{{ title|slice(0, 40) ~ '...' }}{% else %}{{ title }}{% endif %}</h5>
+        <p class="card-text"
+           style="height: 60px;">{% if headline|length > 100 %}{{ headline|slice(0, 100) ~ '...' }}{% else %}{{ headline }}{% endif %}</p>
+        <div class="project-bottom">
+            <div class="project-block project-left">
+                <i class="fa fa-thumbs-o-up"></i> {% if likecount %}{{ likecount }}{% else %}0{% endif %}
+            </div>
+            <div class="project-block project-right">
+                <a href="{{ path('advice_detail', {'id': id}) }}">{{ 'ДЭЛГЭРЭНГҮЙ'|trans }}</a>
+            </div>
+        </div>
+    </div>
+</div>

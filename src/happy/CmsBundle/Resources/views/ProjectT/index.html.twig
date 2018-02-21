@@ -1,0 +1,90 @@
+{% extends 'happyCmsBundle::base.html.twig' %}
+
+
+{% block pageheader %}Төслийн төрөл жагсаалт{% endblock %}
+{% block body %}
+    {% include ':inc:flashmsg.html.twig' %}
+    <style>
+        ul li {
+            display: inline-block;
+        }
+    </style>
+    <ul style="list-style: none;padding: 0;">
+        <li>
+            <a class="btn btn-success" href="{{ path('cms_project_type_new') }}">Шинээр
+                үүсгэх</a>
+        </li>
+    </ul>
+    <table class="table table-hover table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Зураг</th>
+            <th>Нэр</th>
+            <th>Тайлбар</th>
+            <th>Үүсгэсэн огноо</th>
+            <th>Өөрчилсөн огноо</th>
+            <th>Онцлох</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody  id="sortable">
+        {% for con in projt %}
+            <tr id="{{ con.id }}">
+                <td>{{ con.id }}</td>
+                <td><img src="/{{ statfolder }}{{ con.img }}" width="100"></td>
+                <td>{{ con.name }}</td>
+                <td>{{ con.desc }}</td>
+                <td>{{ con.createdDate|date('Y-m-d H:i:s') }}</td>
+                <td>{{ con.updatedDate|date('Y-m-d H:i:s') }}</td>
+                <td>
+                    {% if con.isSpecial == 1 %}
+                        <a class="btn btn-success"
+                           href="{{ path('cms_projectt_special_no', { 'id': con.id,'currentRoute' : currentRoute }) }}"><i
+                                    class="glyphicon glyphicon-ok"></i></a>
+                    {% else %}
+                        <a class="btn btn-danger"
+                           href="{{ path('cms_projectt_special_yes', { 'id': con.id,'currentRoute' : currentRoute }) }}"><i
+                                    class="glyphicon glyphicon-remove"></i></a>
+                    {% endif %}
+                </td>
+                <td>
+                    <ul>
+                        <li>
+                            <a class="btn btn-default"
+                               href="{{ path('cms_project_type_show', { 'id': con.id,'currentRoute' : currentRoute }) }}">дэлгэрэнгүй</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-success"
+                               href="{{ path('cms_project_type_update', { 'id': con.id,'currentRoute' : currentRoute }) }}">засах</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+{% block js %}
+    <script src="{{ asset('recource/js/jquery-ui.min.js') }}"></script>
+    <script>
+        $("#sortable").sortable({
+            stop: sortajax
+        }).disableSelection();
+
+        function sortajax(event, ui) {
+            var ids = $.map($(this).find("tr"), function (el) {
+                return el.id;
+            });
+            $.ajax({
+                url: '{{ path('cms_project_type_order') }}',
+                type: 'POST',
+                data: {
+                    ids: ids
+                }
+            }).done(function () {
+            });
+        }
+    </script>
+{% endblock %}
+

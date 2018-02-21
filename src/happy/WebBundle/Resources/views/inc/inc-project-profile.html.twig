@@ -1,0 +1,13 @@
+<div class="card comment-block">
+    <div class="comment-header">
+        <img class="img-fluid"
+             src="{% if img %}/{{ localstatfolder }}{{ img }}{% else %}{{ asset('recource/user.png') }}{% endif %}">
+    </div>
+
+    <div class="card-block comment-body">
+        <h6 class="card-title profile-team-card-title overflow-w">{% if name|length > 15 %}{{ name|slice(0, 15) ~ '...' }}{% else %}{{ name }}{% endif %}</h6>
+        <h6 class="profile-team-card-position overflow-w">{% if position|length > 80 %}{{ position|slice(0, 80) ~ '...' }}{% else %}{{ position }}{% endif %}</h6>
+        <p class="card-text profile-team-card-text overflow-w">{% if bio|length > 100 %}{{ bio|slice(0, 100) ~ '...' }}{% else %}{{ bio }}{% endif %}</p>
+    </div>
+
+</div>

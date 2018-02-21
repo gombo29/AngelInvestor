@@ -1,0 +1,218 @@
+{% extends 'happyWebBundle:Layout:base.html.twig' %}
+{% block ogtag %}
+    <meta property="og:url" content="http://test.mcf4u.com">
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="{{ project.name }}"/>
+    <meta property="og:description" content="{{ project.shortSummary }}"/>
+    <meta property="og:image" content="http://test.mcf4u.com/{{ localstatfolder }}{{ project.profileImg }}"/>
+{% endblock %}
+
+{% block body %}
+    <!-- Banner Slider -->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                {% if project.img %}
+                    <div class="project-detail-back-image"
+                         style="background-image: url('/{{ localstatfolder }}{{ project.img }}');">
+                    </div>
+                {% else %}
+                    <img src="{{ asset('recource/cover.jpg') }}"
+                         style="width: 100%">
+                {% endif %}
+                <div class="profile-cover">
+                    <img src="{% if project.profileImg %}/{{ localstatfolder }}{{ project.profileImg }}{% else %}{{ asset('recource/noimage.jpg') }}{% endif %}">
+
+                </div>
+                <p class="profile-name">{{ project.name }}</p>
+
+                <p class="profile-company-name">{{ project.companyName }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card card-block">
+        <div class="container">
+            <div class="tabs-wrapper">
+                <ul class="nav classic-tabs tabs-grey" role="tablist" style="float: left">
+                    <li class="nav-item">
+                        <a class="nav-link waves-light nav-other active" data-toggle="tab" href="#panel71" role="tab">
+                            Ерөнхий мэдээлэл</a>
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link nav-other waves-light" data-toggle="tab" href="#panel72" role="tab"> Pitch &
+                            Deal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-other waves-light" data-toggle="tab" href="#panel73" role="tab">Багийн
+                            гишүүд</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link nav-other waves-light" data-toggle="tab" href="#panel74"
+                           role="tab">Хавсралт</a>
+                    </li>
+                </ul>
+                {% if app.user.isInvestor == true %}
+                    {% if isInterest == 0 %}
+                        <a href="{{ path('project_interest', {'id': project.id}) }}"
+                           class="btn btn-outline-info waves-effect hidden-xs-down"
+                           style="float:right; padding: 5px 10px"
+                           role="tab">Сонирхох</a>
+                    {% else %}
+                        <a class="btn btn-info waves-effect hidden-xs-down" style="float:right; padding: 5px 10px"
+                           role="tab">Сонирхох</a>
+                    {% endif %}
+
+                    {% if isInvestment == 0 %}
+                        <a href="{{ path('project_investment', {'id': project.id}) }}"
+                           class="btn btn-outline-info waves-effect hidden-md-down"
+                           style="float:right; padding: 5px 10px"
+                           role="tab">Хөрөнгө оруулах</a>
+                    {% else %}
+                        <a class="btn btn-info waves-effect hidden-md-down" style="float:right; padding: 5px 10px"
+                           role="tab">Хөрөнгө оруулах</a>
+                    {% endif %}
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>
+    <div class="card card-block">
+        <div class="container">
+            <div class="tab-content">
+                <div class="tab-pane fade in show active" id="panel71" role="tabpanel">
+
+                    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12" style="float: left;margin-bottom: 25px;">
+
+
+                        <h6 class="project-detail-header">Short summary</h6>
+
+                        <iframe frameborder="0" allowtransparency="true"
+                                style="border:none; overflow:hidden; width:130px; height:21px;"
+                                scrolling="no"
+                                src="//www.facebook.com/plugins/like.php?href={{ url('advice_detail',{ 'id':  project.id}) }}&amp;width=130&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=21&amp;appId=1490690757893701"></iframe>
+
+
+                        <p style="text-align: justify">{{ project.shortSummary }}</p>
+                        {% if project.video %}
+                            <br>
+                            <h6 class="project-detail-header">Танилцуулга видео</h6>
+                            <div class="videoWrapper">
+                                <iframe src="https://www.youtube.com/embed/{{ project.video }}"></iframe>
+                            </div>
+                            <br>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="float: left;margin-bottom: 25px;">
+                        <h6 class="project-detail-header">Ерөнхий тойм</h6>
+                        <div class="project-detail-overview">
+                            <div class="project-detail-overview-left">Шаардлагатай хөрөнгө</div>
+                            <div class="project-detail-overview-right">₮{{ project.finishPrice }}</div>
+                        </div>
+
+                        <div class="project-detail-overview">
+                            <div class="project-detail-overview-left">Багадаа</div>
+                            <div class="project-detail-overview-right">₮{{ project.totalPrice }}</div>
+                        </div>
+
+                        <div class="project-detail-overview">
+                            <div class="project-detail-overview-left">Stage</div>
+                            <div class="project-detail-overview-right">
+                                {% if project.stage == 1 %}
+                                    Pre startup
+                                {% elseif project.stage == 2 %}
+                                    MVP finished product
+                                {% elseif project.stage == 3 %}
+                                    Achieving Sales
+                                {% elseif project.stage == 4 %}
+                                    Breaking even
+                                {% elseif project.stage == 5 %}
+                                    profitable
+                                {% elseif project.stage == 6 %}
+                                    other
+                                {% else %}
+                                    N/A
+                                {% endif %}
+
+                            </div>
+                        </div>
+
+                        <div class="project-detail-overview">
+                            <div class="project-detail-overview-left">Investor Role</div>
+                            <div class="project-detail-overview-right">
+                                {% if project.stage == 1 %}
+                                    Investor role
+                                {% elseif project.stage == 2 %}
+                                    Silent
+                                {% elseif project.stage == 3 %}
+                                    Daily Involvement
+                                {% elseif project.stage == 4 %}
+                                    Weekly Involvement
+                                {% elseif project.stage == 5 %}
+                                    Monthly Involvement
+                                {% elseif project.stage == 6 %}
+                                    Any
+                                {% else %}
+                                    N/A
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="tab-pane fade in show" id="panel72" role="tabpanel">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h6 class="project-detail-header">The business</h6>
+                        <p style="text-align: justify">{{ project.business }}</p>
+
+                        <br>
+
+                        <h6 class="project-detail-header">The market</h6>
+                        <p style="text-align: justify">{{ project.market }}</p>
+
+                        <br>
+                        <h6 class="project-detail-header">Progress/Proof</h6>
+                        <p style="text-align: justify">{{ project.progress }}</p>
+
+                        <br>
+                        <h6 class="project-detail-header">Future</h6>
+                        <p style="text-align: justify">{{ project.future }}</p>
+
+                    </div>
+                </div>
+
+                <div class="tab-pane fade in show" id="panel73" role="tabpanel">
+                    <br>
+                    {% for e in project_team %}
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 div-margin">
+                            {% include  '@happyWeb/inc/inc-project-profile.html.twig' with {'img' : e.img, 'name': e.name, 'bio': e.bio, 'position': e.position} %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="tab-pane fade in show" id="panel74" role="tabpanel" style="text-align: center">
+
+                    <h6 class="project-detail-header">Бизнес төлөвлөгөө татах</h6>
+
+
+                    {% if project.document %}
+                        <a href="/{{ localstatfolder }}{{ project.document }}"
+                           download style="text-align: center">
+                            <img src="{{ asset('recource/pdf-icon.png') }}" style="display: contents">
+                        </a>
+                    {% else %}Одоогоор файл хуулагдаагүй байна.{% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+

@@ -1,0 +1,64 @@
+<div class="card" style="border: 1px solid #cccccc;border-radius: 25px;overflow: hidden;">
+    <div class="project-head">
+            {% if app.user %}
+                {% if app.user.id == userid %}
+                    <a href="{{ path('project_detail', {'id': id}) }}">
+                {% else %}
+                    {% if app.user.isInvestor == true %}
+                    <a href="{{ path('project_detail', {'id': id}) }}">
+                    {% else %}
+                    <a href="javascript:void(0);" data-toggle="modal" data-target="#navModalInfo">
+                    {% endif %}
+                {% endif %}
+            {% else %}
+                <a href="javascript:void(0);" data-toggle="modal" data-target="#navModalInfo">
+            {% endif %}
+                <img style="width: 100%" class="img-fluid overflow-w"
+                     src="{% if img %}/{{ localstatfolder }}{{ img }}{% else %}{{ asset('recource/noimage.jpg') }}{% endif %}">
+            </a>
+            {% if special == 1 %}
+                <div class="project-special">
+                    {{ 'ОНЦЛОХ'|trans }}
+                </div>
+            {% endif %}
+
+            <div class="project-percent">
+                <b>{% if percent %}{{ percent }}{% else %}0{% endif %}%</b>
+            </div>
+    </div>
+    <div class="card-block">
+        <h5 class="card-title overflow-w" style="height: 18px;">{{ title }}</h5>
+        <p class="card-text overflow-w"
+           style="height: 90px;">{% if headline %}{{ headline|slice(0, 220) ~ '...' }}{% endif %}</p>
+        <div class="project-price">
+            <div class="project-block project-left">
+                <p style="font-weight: bold;font-size: 16px">{{ reserve_price }}</p>
+                <p>{{ 'Зорилтот'|trans }}</p>
+            </div>
+            <div class="project-block project-right">
+                <p style="font-weight: bold;font-size: 16px">{{ now_price }}</p>
+                <p>{{ 'Одоогоор'|trans }}</p>
+            </div>
+        </div>
+        <div class="project-bottom">
+            <div class="project-block project-left">
+                <i class="fa fa-thumbs-o-up"></i> {% if likecount %}{{ likecount }}{% else %}0{% endif %}
+            </div>
+            <div class="project-block project-right">
+                {% if app.user %}
+                    {% if app.user.id == userid %}
+                            <a href="{{ path('project_detail', {'id': id}) }}">{{ 'ДЭЛГЭРЭНГҮЙ'|trans }}</a>
+                    {% else %}
+                        {% if app.user.isInvestor == true %}
+                            <a href="{{ path('project_detail', {'id': id}) }}">{{ 'ДЭЛГЭРЭНГҮЙ'|trans }}</a>
+                        {% else %}
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#navModalInfo">{{ 'ДЭЛГЭРЭНГҮЙ'|trans }}</a>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    <a href="javascript:void(0);" data-toggle="modal" data-target="#navModalInfo">{{ 'ДЭЛГЭРЭНГҮЙ'|trans }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

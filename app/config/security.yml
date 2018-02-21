@@ -1,0 +1,46 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+
+    role_hierarchy:
+        ROLE_CMS_USER:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_CMS_USER, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_INVESTER_USER:       ROLE_INVESTER_USER
+        ROLE_ENTERPRENUER_USER:       ROLE_ENTERPRENUER_USER
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
+
+    firewalls:
+        main:
+            pattern: ^/
+            form_login:
+                provider:  fos_userbundle
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+                failure_path: null
+                csrf_provider: security.csrf.token_manager
+                always_use_default_target_path: true
+                default_target_path: /mn/home
+            logout:
+                path:           /mn/logout
+                target:         /mn/home
+            anonymous:    true
+            # activate different ways to authenticate
+
+            # http_basic: ~
+            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: ~
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/profile, role: ROLE_USER }
+        - { path: ^/project/, role: ROLE_USER }
+#        - { path: ^/gombo, role: ROLE_CMS_USER }

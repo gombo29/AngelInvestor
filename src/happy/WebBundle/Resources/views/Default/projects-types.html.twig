@@ -1,0 +1,39 @@
+{% extends 'happyWebBundle:Layout:base.html.twig' %}
+{% block body %}
+    <div class="project-type-background">
+        <div class="container">
+
+            <form action="{{ path('project-types') }}" method="get" {{ form_enctype(searchform) }}>
+                {{ form_errors(searchform) }}
+                <div class="projects-header">
+                    <div class="projects-search">
+                        {{ form_row(searchform.name) }}
+                        <button type="submit" name="submit" value="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+                {{ form_rest(searchform) }}
+            </form>
+
+
+            {% for key ,pt in projectt %}
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="float: left;margin-bottom: 25px;">
+                    {% if app.request.locale == 'en' %} {% set name = pt.nameEn %}{% else %} {% set name = pt.name %}{% endif %}
+                        {% include  '@happyWeb/inc/inc-project-type.html.twig' with {'img' :statfolder ~  pt.img  , 'title': name, 'id' : pt.id } %}
+                </div>
+            {% endfor %}
+            {% include '@happyWeb/Layout/page.html.twig' with {'route' : 'project-types'} %}
+
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        if (window.location.search != '') {
+            $.each($('.pagination a'), function (key, val) {
+                $(this).attr('href', $(this).attr('href') + window.location.search);
+            });
+        }
+    </script>
+{% endblock %}

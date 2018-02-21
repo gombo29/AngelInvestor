@@ -1,0 +1,25 @@
+fos_user:
+    username:
+        already_used: Нэвтрэх нэр давхацаж байна!
+        blank: Нэвтрэх нэр оруулна уу!
+        short: "[-Inf,Inf]Нэвтрэх нэр богинохон байна!"
+        long: "[-Inf,Inf]Нэвтрэх нэр урт байна!"
+    email:
+        already_used: Цахим шуудан хаяг давхацаж байна!
+        blank: Please enter an email
+        short: "[-Inf,Inf]Цахим хаяг богинохон байна!"
+        long: "[-Inf,Inf]Цахим хаяг урт байна!"
+        invalid: Зөв цахим хаяг оруулна уу!
+    password:
+        blank: Нууц үг оруулна уу
+        short: "[-Inf,Inf]Нууц үг богинохон байна!"
+        mismatch: Нууц үгнүүд тохирохгүй байна
+    new_password:
+        blank: Шинэ нууц үг оруулна уу!
+        short: "[-Inf,Inf]Шинэ нууц үг богинохон байна!"
+    current_password:
+        invalid: The entered password is invalid
+    group:
+        blank: Please enter a name
+        short: "[-Inf,Inf]The name is too short"
+        long: "[-Inf,Inf]The name is too long"

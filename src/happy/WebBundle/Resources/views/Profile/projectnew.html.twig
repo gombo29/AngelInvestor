@@ -1,0 +1,86 @@
+{% extends 'happyWebBundle:Layout:base.html.twig' %}
+{% block body %}
+<br>
+<div class="container">
+    <div class="card card-block">
+        <div class="tabs-wrapper">
+            <ul class="nav classic-tabs tabs-grey" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link waves-light active" data-toggle="tab" href="#panel71" role="tab">
+                        <i class="fa fa-arrow-circle-right"></i> Ерөнхий
+                        мэдээлэл</a>
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link waves-light" data-toggle="modal" data-target="#centralModalInfo"> <i
+                                class="fa fa-arrow-circle-right"></i> Pitch &
+                        Deal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-light" data-toggle="modal" data-target="#centralModalInfo"> <i
+                                class="fa fa-arrow-circle-right"></i> Багийн
+                        гишүүд</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link waves-light" data-toggle="modal" data-target="#centralModalInfo"> <i
+                                class="fa fa-arrow-circle-right"></i> Зураг &
+                        Видео</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link waves-light" data-toggle="modal" data-target="#centralModalInfo">
+                        <i class="fa fa-smile-o"></i> Finish</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="card card-block">
+        <div class="tab-content">
+            <div class="tab-pane fade in show active" id="panel71" role="tabpanel">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input class="btn btn-primary" type="submit" value="Хадгалах"/>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    <br>
+    {% endblock %}
+
+    {% block js %}
+        <div class="modal fade" id="centralModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-notify modal-info" role="document">
+                <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header">
+                        <p class="heading lead">Анхааруулга!</p>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="white-text">&times;</span>
+                        </button>
+                    </div>
+
+                    <!--Body-->
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <i class="fa fa-check fa-4x mb-1 animated rotateIn"></i>
+                            <p>Та ерөнхий мэдээллүүдийг бөглөж дууссаны дараа бусад мэдээллүүдийг оруулах боломжтой
+                                болно!</p>
+                        </div>
+                    </div>
+
+                    <!--Footer-->
+                    <div class="modal-footer justify-content-center">
+                        <a type="button" class="btn btn-outline-secondary-modal waves-effect" data-dismiss="modal">Ойлголоо,
+                            баярлалаа</a>
+                    </div>
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+    {% endblock %}
+

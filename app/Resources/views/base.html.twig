@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{{ asset('resource/favicon.ico') }}" sizes="16x16">
+    <title>Angel Investment</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('recource/MDBFree/css/bootstrap.min.css') }}" type="text/css" media="screen">
+    <link rel="stylesheet" href="{{ asset('recource/MDBFree/css/mdb.min.css') }}" type="text/css" media="screen">
+    <link rel="stylesheet" href="{{ asset('recource/MDBFree/css/style.css') }}" type="text/css" media="screen">
+    {% block ogtag %}
+    {% endblock %}
+    {% block style %}
+    {% endblock %}
+</head>
+<body>
+
+{% block main %}
+{% endblock %}
+
+<script type="text/javascript" src="{{ asset('recource/MDBFree/js/jquery-2.2.3.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('recource/MDBFree/js/tether.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('recource/MDBFree/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('recource/MDBFree/js/mdb.min.js') }}"></script>
+
+
+{% block js %}
+{% endblock %}
+{% if app.user %}
+    {% if  app.user.isNoti is defined %}
+        {% if app.user.isNoti == 1 %}
+            <script>
+                $(document).ready(function () {
+                    $("#notiModalInfo").modal('show');
+                });
+            </script>
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+
+<script>
+    $(function () {
+        var langUrl = window.location.pathname;
+        if (langUrl.indexOf("/en/") != -1)
+            langUrl = langUrl.replace("/en/", "/mn/");
+        else
+            langUrl = langUrl.replace("/mn/", "/en/");
+        $("a.switch_lang").attr("href", langUrl);
+//        location.reload();
+    });
+</script>
+<div class="modal fade" id="notiModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-info" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="heading lead">Таньд мэдэгдэл ирсэн байна!</p>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <a href="{{ path('profile', {'t': 4}) }}" class="btn btn-outline-secondary-modal waves-effect">Мэдэгдэл
+                    үзэх</a>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+
+<div class="modal fade" id="navModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-info" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <p class="heading lead">Анхааруулга!</p>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+                <div class="text-center">
+                    <p>Зөвхөн хөрөнгө оруулагч нар төслийн дэлгэрэнгүйг үзэх эрхтэй!</p>
+                </div>
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <a type="button" class="btn btn-outline-secondary-modal waves-effect" data-dismiss="modal">Ойлголоо,
+                    баярлалаа</a>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+
+</body>
+</html>

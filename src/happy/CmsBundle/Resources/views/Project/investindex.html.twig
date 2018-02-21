@@ -1,0 +1,42 @@
+{% extends 'happyCmsBundle::base.html.twig' %}
+
+
+{% block pageheader %}Хөрөнгө оруулах төслүүдийн жагсаалт{% endblock %}
+{% block body %}
+
+    <table class="table table-hover table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Төсөл нэр</th>
+            <th>Хөрөнгө оруулагч нэр</th>
+            <th>Төсөл санаачлагч нэр</th>
+            <th>Үүсгэсэн огноо</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for con in pi %}
+            <tr>
+                <td>{{ con.id }}
+                </td>
+                <td>
+                    <a href="{{ weburl }}project_detail/{{ con.project.id }}" target="_blank">{{ con.project.name }}</a>
+                </td>
+                <td>
+                    <a href="{{ path('cms_user_show', {'id': con.user.id}) }}" target="_blank"> {{ con.user.username }}</a>
+                </td>
+                <td>
+                    <a href="{{ path('cms_user_show', {'id': con.project.user.id}) }}" target="_blank"> {{ con.project.user.username }}</a>
+                </td>
+                <td>
+                    {{ con.createdDate|date('Y/m/d') }}
+                </td>
+
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+

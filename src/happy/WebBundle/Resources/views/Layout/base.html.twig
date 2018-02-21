@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+{% block main %}
+    {% include 'happyWebBundle:Layout:header.html.twig' %}
+
+    <div class="body-margin">
+    {% block body %}
+    {% endblock %}
+    </div>
+
+    {% include 'happyWebBundle:Layout:footer.html.twig' %}
+{% endblock %}

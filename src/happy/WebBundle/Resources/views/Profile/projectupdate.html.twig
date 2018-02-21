@@ -1,0 +1,218 @@
+{% extends 'happyWebBundle:Layout:base.html.twig' %}
+{% block body %}
+    <br>
+    <div class="container">
+        <div class="card card-block">
+            <div class="tabs-wrapper">
+                <ul class="nav classic-tabs tabs-grey" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link waves-light {% if type == 1 %} active{% endif %}" data-toggle="tab"
+                           href="#panel71" role="tab">
+                            <i class="fa fa-arrow-circle-right"></i> Ерөнхий
+                            мэдээлэл</a>
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link waves-light{% if type == 2 %} active{% endif %}" data-toggle="tab"
+                           href="#panel72" role="tab"> <i
+                                    class="fa fa-arrow-circle-right"></i> Pitch &
+                            Deal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-light {% if type == 3 %} active{% endif %}" data-toggle="tab"
+                           href="#panel73" role="tab"> <i
+                                    class="fa fa-arrow-circle-right"></i> Багийн
+                            гишүүд</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link waves-light {% if type == 4 %} active{% endif %}" data-toggle="tab"
+                           href="#panel74" role="tab"> <i
+                                    class="fa fa-arrow-circle-right"></i> Зураг &
+                            Видео</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link waves-light">
+                            <i class="fa fa-smile-o"></i> Finish</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="card card-block">
+            <div class="tab-content">
+                <div class="tab-pane fade in show {% if type == 1 %} active{% endif %}" id="panel71" role="tabpanel">
+                    {{ form_start(main_form) }}
+                    {{ form_widget(main_form) }}
+                    <input class="btn btn-primary" type="submit" value="Хадгалах"/>
+                    {{ form_end(main_form   ) }}
+                </div>
+
+                <div class="tab-pane fade in show {% if type == 2 %} active{% endif %}" id="panel72" role="tabpanel">
+                    {{ form_start(dealForm) }}
+                    {{ form_widget(dealForm) }}
+                    <input class="btn btn-primary" type="submit" value="Хадгалах"/>
+                    {{ form_end(dealForm) }}
+                </div>
+
+                <div class="tab-pane fade in show {% if type == 3 %} active{% endif %}" id="panel73" role="tabpanel">
+
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 div-margin">
+
+                        <div class="card card-block">
+                            {{ form_start(teamForm) }}
+                            {{ form_row(teamForm.name) }}
+                            {{ form_row(teamForm.position) }}
+
+                            <label for="happy_banner_team_bio">Зураг оруулах</label>
+                            <div class="profile-img-block">
+                                <p>
+                                    <img id="avatarimg" src="{{ asset('recource/user.png') }}" width="80">
+                                </p>
+                                {{ form_widget(teamForm.imagefile) }}
+                            </div>
+
+                            {{ form_row(teamForm.bio) }}
+                            <input class="btn btn-primary" type="submit" value="Нэмэх"/>
+                            {{ form_end(teamForm) }}
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 div-margin">
+                        {% for e in project_team %}
+                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 div-margin">
+                                {% include  '@happyWeb/inc/inc-project-profile.html.twig' with {'img' : e.img, 'name': e.name, 'bio': e.bio, 'position': e.position} %}
+                                <a onclick="if(!confirm('Итгэлтэй байна уу!'))return false;"
+                                   class="profile-project-delete"
+                                   href="{{ path('project_team_delete' , {'id': e.id , 'project': project.id}) }}">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+
+                                <a href="{{ path('project_team_update', {'id': e.id} ) }}">
+                                    <i class="fa fa-edit profile-project-edit" style="top: 15px;"></i></a>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+
+                </div>
+
+                <div class="tab-pane fade in show {% if type == 4 %} active{% endif %}" id="panel74" role="tabpanel">
+                    {{ form_start(imageForm) }}
+
+
+                    {% if project.video %}
+                        <p>Өмнө оруулсан видео</p>
+                        <iframe
+                                src="https://www.youtube.com/embed/{{ project.video }}">
+                        </iframe>
+                    {% endif %}
+                    {{ form_row(imageForm.video) }}
+
+                    <label for="happy_banner_team_bio">Profile зураг оруулах /Зургын хэмжээ 300х150 байвал
+                        зохино./</label>
+
+                    <div class="profile-img-block">
+                        <p>
+                            <img id="profileimg"
+                                 src="{% if project.profileImg %}/{{ localstatfolder }}{{ project.profileImg }}{% else %}{{ asset('recource/noimage.jpg') }}{% endif %}"
+                                 width="300">
+                        </p>
+                        {{ form_widget(imageForm.profileimagefile) }}
+                    </div>
+
+                    <label for="happy_banner_team_bio">Ковер зураг оруулах /Зургын хэмжээ 1920x350 байвал
+                        зохино./</label>
+                    <div class="profile-img-block">
+                        <p>
+                            <img id="coverimg"
+                                 src="{% if project.img %}/{{ localstatfolder }}{{ project.img }}{% else %}{{ asset('recource/cover.jpg') }}{% endif %}"
+                                 width="600">
+                        </p>
+                        {{ form_widget(imageForm.imagefile) }}
+                    </div>
+
+                    <label for="happy_banner_team_bio">Хавсралт оруулах</label>
+
+                    <div class="profile-img-block">
+
+                        <div>
+                            <a href="/{{ localstatfolder }}{{ project.document }}"
+                               download>{% if project.document %}<i
+                                        class="fa fa-download"></i> Өмнө хуулсан файл татаж авах{% else %}Одоогоор файл хуулагдаагүй байна.{% endif %}
+                            </a>
+                        </div>
+
+                        {{ form_widget(imageForm.documentfile) }}
+                    </div>
+                    <br>
+                    <input class="btn btn-primary" type="submit" value="Хадгалах"/>
+                    {{ form_end(imageForm) }}
+                </div>
+
+                <div class="tab-pane fade in show active" id="panel74" role="tabpanel">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+{% endblock %}
+{% block js %}
+    <script>
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#avatarimg').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function coverURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#coverimg').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function profileURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#profileimg').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#happy_banner_team_imagefile").change(function () {
+            readURL(this);
+        });
+
+        $("#happy_cover_imagefile").change(function () {
+            coverURL(this);
+        });
+
+        $("#happy_cover_profileimagefile").change(function () {
+            profileURL(this);
+        });
+
+
+    </script>
+{% endblock %}
+
+
+

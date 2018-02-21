@@ -1,0 +1,216 @@
+{% extends 'happyWebBundle:Layout:base.html.twig' %}
+{% block style %}
+
+{% endblock %}
+{% block body %}
+
+    <!-- Banner Slider -->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade top-slide" data-ride="carousel"
+         style="max-height: 500px;overflow: hidden;vertical-align: middle;text-align: center;">
+        {#<ol class="carousel-indicators">#}
+            {#{% for key, b in  banner %}#}
+                {#{% if b.bannerbairlal.id == 1 %}#}
+                    {#<li data-target="#carousel-example-1z" data-slide-to="{{ key }}" class="active"></li>#}
+                {#{% endif %}#}
+            {#{% endfor %}#}
+        {#</ol>#}
+        <div class="carousel-inner" role="listbox">
+            {% for key, b in  banner %}
+                {% if b.bannerbairlal.id == 1 %}
+                    <div class="carousel-item {% if key == 0 %}active{% endif %}">
+                        <img src="{{ statfolder }}{{ b.img }}" class="slide-img">
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">өмнөх</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">дараах</span>
+        </a>
+
+        <div style="position: absolute;top: 15%;width: 100%;text-align: center;">
+            <p style="color: #ffffff;font-size: 40px;">{{ 'Бизнес эрхлэгчийг хөрөнгө'|trans }} <br> {{ 'оруулагчтай хялбар холбоно'|trans }}</p>
+        </div>
+
+        <div style="position: absolute;top: 50%;width: 100%;text-align: center;">
+            <div style="width: 40%;float: left;height: 5px"> <p style="color: #ffffff;float: right;
+margin-right: 20px;
+margin-top: 15px;font-size: 18px;">{{ 'Би'|trans }} </p></div>
+            <div style="width: 20%;float: left;">
+
+
+
+                <div class="select-div project-shadow" style="width: 100%;border: 1px dashed #fff;background-color: transparent;height: 55px;
+padding-top: 8px;border-radius:8px;background: url('{{ asset('recource/arrow_white.png') }}') no-repeat 98% 15px">
+                    <span class="selectDefault" style="color: #ffffff;font-size: 18px;padding-left:0;">Сонгоно уу...</span>
+                    <div>
+
+                        <select
+                                id="happy_banner_mm_projectType" name="happy_banner_mm[projectType]"
+                                class="form-control selectBox">
+                            <option value="">{{ 'Сонгоно уу...'|trans }}</option>
+                            <option value="1">{{ 'Хөрөнгө оруулагч'|trans }}</option>
+                            <option value="2">{{ 'Хөрөнгө хайж байна'|trans }}</option>
+                        </select></div>
+                </div>
+
+
+                <a class="btn btn-primary" style="width: 200px">{{ 'Эхлэх'|trans }}</a>
+            </div>
+            <div style="width: 40%;float: left;height: 5px"> <p style="color: #ffffff;float: left;
+
+margin-left: 20px;
+margin-top: 15px;font-size: 18px;">{{ ' хайж байна ... '|trans }} </p></div>
+        </div>
+    </div>
+
+
+    <!-- Projects -->
+    <div class="project-background">
+        <div class="container">
+
+            <div class="home-header">
+                <h4>{{ 'ХӨРӨНГӨ ОРУУЛАЛТ ШААРДЛАГАТАЙ ТӨСЛҮҮД'|trans }}</h4>
+                <p>
+                    {% for key, a in  advice %}
+                        {% if a.contentbairlal.id == 1 %}
+                            {% if app.request.locale == 'en' %} {{ a.headlineEn }} {% else %}{{ a.headline }}{% endif %}
+                        {% endif %}
+                    {% endfor %}</p>
+            </div>
+
+            <div id="projects" class="carousel slide carousel-multi-item" data-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        {% for key, e in project %}
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 {% if key != 0 %}hidden-xs-down{% endif %}">
+                                {% include  '@happyWeb/inc/inc-project.html.twig' with {'userid': e.user.id, 'special': e.isSpecial, 'likecount': e.likeCount, 'id': e.id, 'img' : e.profileImg , 'percent': e.huvi , 'title': e.name , 'headline': e.short_summary, 'reserve_price': e.finishPrice, 'now_price': e.totalPrice} %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="project-footer">
+                    <a href="{{ path('projects') }}">{{ 'БУСАД ТӨСЛҮҮД'|trans }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project types --->
+
+    <div class="project-type-background">
+        <div class="container">
+            <div class="container">
+
+                <div class="home-header">
+                    <h4>{{ 'ТӨСЛИЙН ТӨРЛҮҮД'|trans }}</h4>
+                    <p> {% for key, a in  advice %}
+                            {% if a.contentbairlal.id == 2 %}
+                                {% if app.request.locale == 'en' %} {{ a.headlineEn }} {% else %}{{ a.headline }}{% endif %}
+                            {% endif %}
+                        {% endfor %}</p>
+                </div>
+                {% for key, pt in projectt %}
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="float: left;margin-bottom: 25px;">
+                        {% if app.request.locale == 'en' %} {% set name = pt.nameEn %}{% else %} {% set name = pt.name %}{% endif %}
+                        {% include  '@happyWeb/inc/inc-project-type.html.twig' with {'img' :statfolder ~  pt.img  , 'title': name, 'id' : pt.id } %}
+                    </div>
+                {% endfor %}
+                <div class="project-footer">
+                    <a href="{{ path('project-types') }}">{{ 'БУСАД ТӨРЛҮҮД'|trans }}</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Info graphics -->
+
+    <div class="project-background">
+        <div class="container">
+            <div class="container">
+
+                <div class="home-header">
+                    <h4>{{ 'ИНФОГРАФИК'|trans }}</h4>
+                    <p> {% for key, a in  advice %}
+                                {% if a.contentbairlal.id == 3 %}
+                                    {% if app.request.locale == 'en' %} {{ a.headlineEn }} {% else %}{{ a.headline }}{% endif %}
+                                {% endif %}
+                        {% endfor %}</p>
+                </div>
+                <div class="infographics-block">
+                    {% for key, b in  banner %}
+                        {% if b.bannerbairlal.id == 2 %}
+                            <div class="infographics-body">
+                                <img src="{{ statfolder }}{{ b.img }}">
+                            </div>
+
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Comments -->
+
+    <div class="project-type-background">
+        <div class="container">
+            <div class="container">
+
+                <div class="home-header">
+                    <h4>{{ 'ХАРИЛЦАГЧИЙН СЭТГЭГДЭЛ'|trans }}</h4>
+                    <p> {% for key, a in  advice %}
+                            {% if a.contentbairlal.id == 4 %}
+                                {% if app.request.locale == 'en' %} {{ a.headlineEn }} {% else %}{{ a.headline }}{% endif %}
+                            {% endif %}
+                        {% endfor %}</p>
+                </div>
+
+
+                <!--Carousel Wrapper-->
+                <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active">
+                            {% for key, i in 0..2 %}
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 {% if key != 0 %}hidden-xs-down{% endif %}">
+                                    {% include  '@happyWeb/inc/inc-profile.html.twig' with {'img' : '', 'location': 'Улаанбаатар, Монгол', 'title': 'Гарчиг', 'headline': "Some quick example text to build on the card title and make up the bulk of the card's content.", 'fullname': 'Ганбат ГОМБО', 'major': 'Програмист'} %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+    {% block js %}
+        <script>
+            $(document).ready(function () {
+                $value = $(".selectBox option:selected").text();
+                if ($value != '') {
+                    defaulttext = $value;
+                } else {
+                    defaulttext = 'Сонгоно уу...';
+                }
+
+                $('.selectDefault').text(defaulttext);
+
+                $('.selectBox').on('change', function () {
+                    var selectedText = $(this).find(":selected").text();
+                    $('.selectDefault').text(selectedText);
+                });
+            });
+        </script>
+    {% endblock %}

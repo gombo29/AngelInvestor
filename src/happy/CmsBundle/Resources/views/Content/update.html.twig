@@ -1,0 +1,23 @@
+{% extends 'happyCmsBundle::base.html.twig' %}
+{% block pageheader %}Мэдээ засах хэсэг{% endblock %}
+
+{% block body %}
+    {% include ':inc:flashmsg.html.twig' %}
+
+    {% if banner.img %}
+        <img src="/{{ statfolder }}{{ banner.img }}" width="300">
+    {% endif %}
+
+    {{ form_start(edit_form) }}
+    {{ form_widget(edit_form) }}
+    <input class="btn btn-success" type="submit" value="Засах"/>
+    {{ form_end(edit_form) }}
+    <a style="float: left;margin-bottom: 10px"
+       href="{{ path('cms_content_show', {'id' : id, 'currentRoute':currentRoute}) }}">Буцах</a>
+
+    <script type="text/javascript">
+        CKEDITOR.replace('happy_cmsbundle_content_describe', {
+            height: 300
+        });
+    </script>
+{% endblock %}

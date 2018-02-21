@@ -1,0 +1,178 @@
+{% extends 'happyWebBundle:Layout:base.html.twig' %}
+{% block body %}
+    {% if menu ==  5 %}
+        <div style="width: 100%;height: 300px;background: #268bd2;text-align: center;position: relative; ">
+            <p style="padding-top: 140px;font-size: 30px;color: #fff;">{{ 'Төсөл санаачлагчийн заавар'|trans }}</p>
+        </div>
+        <div class="container">
+            <div class="accordion" id="accordionEx" role="tablist" aria-multiselectable="true" style="margin-top: 30px">
+                {% for key ,e in advice %}
+                    {% set key = key + 1 %}
+                    <a data-toggle="collapse" data-parent="#accordionEx" href="#collapse{{ e.id }}" aria-expanded="true"
+                       aria-controls="collapseOne">
+                        <h5 class="mb-0" role="tab" id="headingOne" style="padding-bottom: 15px;">
+                            {{ key }}
+                            . {% if app.request.locale == 'en' %} {{ e.nameEN }}{% else %}{{ e.name }} {% endif %} <i
+                                    class="fa fa-angle-down rotate-icon"></i>
+                        </h5>
+                    </a>
+                    <div id="collapse{{ e.id }}" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                         style="margin-bottom: 20px">
+                        <div class="card-body">
+                            {% if app.request.locale == 'en' %} {{ e.headlineEn }}{% else %}{{ e.headline }} {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% elseif menu ==  6 %}
+        <div style="width: 100%;height: 300px;background: #268bd2;text-align: center;position: relative; ">
+            <p style="padding-top: 140px;font-size: 30px;color: #fff;">{{ 'Хөрөнгө оруулагчийн заавар'|trans }}</p>
+        </div>
+        <div class="container">
+            <div class="accordion" id="accordionEx" role="tablist" aria-multiselectable="true" style="margin-top: 30px">
+                {% for key ,e in advice %}
+                    {% set key = key + 1 %}
+                    <a data-toggle="collapse" data-parent="#accordionEx" href="#collapse{{ e.id }}" aria-expanded="true"
+                       aria-controls="collapseOne">
+                        <h5 class="mb-0" role="tab" id="headingOne" style="padding-bottom: 15px;">
+                            {{ key }}
+                            . {% if app.request.locale == 'en' %} {{ e.nameEN }}{% else %}{{ e.name }} {% endif %} <i
+                                    class="fa fa-angle-down rotate-icon"></i>
+                        </h5>
+                    </a>
+                    <div id="collapse{{ e.id }}" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                         style="margin-bottom: 20px">
+                        <div class="card-body">
+                            {% if app.request.locale == 'en' %} {{ e.headlineEn }}{% else %}{{ e.headline }} {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% elseif menu ==  8 %}
+        <div class="project-type-background">
+            <div class="container" style="text-align: center">
+                <h3 style="margin-bottom: 50px">{{ 'Манай үнэ ханш'|trans }}</h3>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th style="text-align: center">Novice</th>
+                        <th style="text-align: center">Pro</th>
+                        <th style="text-align: center">Global Pro</th>
+                        <th style="text-align: center">Executive
+                    </tr>
+                    </th>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Listing Period</td>
+                        <td>30 Days</td>
+                        <td>90 Days</td>
+                        <td>90 Days</td>
+                        <td>120 Days</td>
+                    </tr>
+                    <tr>
+                        <td>Local Online Exposure</td>
+                        <td><i class="fa fa-check-square" style="color: green"></i></td>
+                        <td><i class="fa fa-check-square" style="color: green"></i></td>
+                        <td><i class="fa fa-check-square" style="color: green"></i></td>
+                        <td><i class="fa fa-check-square" style="color: green"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Investor Contact Details</td>
+                        <td><i class="fa fa-check-square" style="color: green"></i></td>
+                        <td><i class="fa fa-check-square" style="color: green"></i></td>
+                        <td><i class="fa fa-check-square" style="color: green"></i></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>Investor Contact Details</td>
+                        <td><i class="fa fa-check-square" style="color: green"></i></td>
+                        <td><i class="fa fa-check-square" style="color: green"></i></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>Investor Contact Details</td>
+                        <td><i class="fa fa-check-square" style="color: green"></i></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>Price</td>
+                        <td>1,000,000₮</td>
+                        <td>1,000,000₮</td>
+                        <td>1,000,000₮</td>
+                        <td>1,000,000₮</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% elseif menu == 9 %}
+        <div style="width: 100%;height: 200px;background: #268bd2;text-align: center;position: relative; ">
+            <p style="padding-top: 75px;font-size: 30px;color: #fff;">{{ 'Санхүүжилт'|trans }}</p>
+        </div>
+        <div class="container">
+            <div class="accordion" id="accordionEx" role="tablist" aria-multiselectable="true" style="margin-top: 30px">
+                <p style="text-align: justify;font-size: 28px">{{ 'orchuularrai orchuularraiorchuularraiorchuularraiorchuularrai'|trans }}</p>
+
+                <p>{{ 'orchuulaarai'|trans }}:
+                </p>
+                <ul style="margin-left: 50px">
+                    <li>
+                        • {{ 'list orchularai'|trans }}
+                    </li>
+                    <li> • {{ 'main orchuularai'|trans }}
+                    </li>
+                    <li> • {{ 'blah blah orchuularai'|trans }}
+                    </li>
+                    <li>• {{ 'blah blah blah orchuularai'|trans }}</li>
+                </ul>
+<div style="width: 100%;text-align:center">
+                <a class="btn btn-primary">{{ 'Төсөл нэмэх'|trans }}</a>
+</div>
+            </div>
+        </div>
+    {% else %}
+        <div class="project-type-background">
+            <div class="container">
+                <form action="{{ path('advice') }}" method="get" {{ form_enctype(searchform) }}>
+                    {{ form_errors(searchform) }}
+                    <div class="projects-header">
+                        <div class="projects-search">
+                            {{ form_row(searchform.name) }}
+                            <button type="submit" name="submit" value="submit"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                    {{ form_rest(searchform) }}
+                </form>
+                {% for key ,e in advice %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="float: left;margin-bottom: 25px;">
+
+                        {% if app.request.locale == 'en' %} {% set name = e.nameEN %} {% set headline = e.headlineEn %}{% else %} {% set name = e.name %} {% set headline = e.headline %}{% endif %}
+                        {% include '@happyWeb/inc/inc-advice.html.twig' with{'likecount': e.likeCount, 'img': e.img , 'title': name, 'headline': headline ,'id' : e.id} %}
+                    </div>
+                {% endfor %}
+                {% include '@happyWeb/Layout/page.html.twig' with {'route' : 'advice'} %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block js %}
+    <script>
+        if (window.location.search != '') {
+            $.each($('.pagination a'), function (key, val) {
+                $(this).attr('href', $(this).attr('href') + window.location.search);
+            });
+        }
+    </script>
+{% endblock %}

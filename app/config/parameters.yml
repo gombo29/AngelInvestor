@@ -1,0 +1,33 @@
+parameters:
+    database_host: 127.0.0.1
+    database_port: 8889
+    database_name: startup
+    database_user: gombo
+    database_password: mongolia
+
+    mailer_transport: smtp
+    mailer_host: mail.angelinvester.mn/
+    mailer_user: support@seed.mn
+    mailer_password: Mongolia123!#
+    secret: bf7ad834e7257d8679e426f56a12d1785c4dbc94
+#   resources: http://45.112.178.233/resources
+    statfolder: http://cms.start.co/resources/
+    localstatfolder: resources/
+    thumbsizes: 100
+
+
+#parameters:
+#    database_host: 127.0.0.1
+#    database_port: 3306
+#    database_name: angelinv_start
+#    database_user: angelinv_start
+#    database_password: Mongolia123!#
+#
+#    mailer_transport: smtp
+#    mailer_host: mail.angelinvestor.mn
+#    mailer_user:  support@angelinvestor.mn
+#    mailer_password: Mongolia123!#
+#    secret: bf7ad834e7257d8679e426f56a12d1785c4dbc94
+#    statfolder: http://edit.angelinvestor.mn/resources/
+#    localstatfolder: resources/
+#    thumbsizes: 100

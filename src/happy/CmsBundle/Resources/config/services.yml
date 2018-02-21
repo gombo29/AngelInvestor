@@ -1,0 +1,4 @@
+services:
+    imagegod:
+        class: happy\CmsBundle\Util\ImageGod
+        arguments: ["%statfolder%", "%thumbsizes%"]

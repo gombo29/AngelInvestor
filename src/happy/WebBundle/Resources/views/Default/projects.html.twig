@@ -1,0 +1,60 @@
+{% extends 'happyWebBundle:Layout:base.html.twig' %}
+{% block body %}
+    <div class="project-type-background">
+        <div class="container">
+            <form action="{{ path('projects') }}"
+                  method="get" {{ form_enctype(searchform) }}>
+                {{ form_errors(searchform) }}
+                <div class="projects-header">
+                    <div class="projects-search">
+                        <div class="select-div project-shadow">
+                            <span class="selectDefault"></span>
+                            {{ form_row(searchform.projectType) }}
+                        </div>
+                        {{ form_row(searchform.name) }}
+                        {{ form_row(searchform.startPrice) }}
+                        {{ form_row(searchform.endPrice) }}
+                        <button type="submit" name="submit" value="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+
+                {{ form_rest(searchform) }}
+            </form>
+            {% for key, e in project %}
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="float: left;margin-bottom: 25px;">
+                    {% include  '@happyWeb/inc/inc-project.html.twig' with {'userid': e.user.id ,'special' :  e.isSpecial, 'likecount': e.likeCount,'id': e.id, 'img' : e.profileImg , 'percent': e.huvi , 'title': e.name , 'headline': e.short_summary, 'reserve_price': e.finishPrice, 'now_price': e.totalPrice} %}
+                </div>
+            {% endfor %}
+            {% include '@happyWeb/Layout/page.html.twig' with {'route' : 'projects'} %}
+
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $value = $(".selectBox option:selected").text();
+            if ($value != '') {
+                defaulttext = $value;
+            } else {
+                defaulttext = '{{ 'Сонгоно уу...'|trans }}';
+            }
+
+            $('.selectDefault').text(defaulttext);
+
+            $('.selectBox').on('change', function () {
+                var selectedText = $(this).find(":selected").text();
+                $('.selectDefault').text(selectedText);
+            });
+        });
+
+        if (window.location.search != '') {
+            $.each($('.pagination a'), function (key, val) {
+                $(this).attr('href', $(this).attr('href') + window.location.search);
+            });
+        }
+
+    </script>
+{% endblock %}

@@ -1,0 +1,82 @@
+<navbar class="navbar fixed-top navbar-toggleable-sm scrolling-navbar navbar-dark bg-default">
+    <div class="container">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarNav3" aria-controls="navbarNav3" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="{{ path('happy_web_default_index') }}"><img src="{{ asset('recource/logo.png') }}"
+        class="logo-size">
+        </a>
+
+        <div class="collapse navbar-collapse" id="navbarNav3">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link {% if id is defined and id == 1 %}active{% endif %}"
+                       href="{{ path('happy_web_default_index') }}"><i class="fa fa-home"></i> {{ "Нүүр"|trans }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if id is defined and id == 2 %}active{% endif %}"
+                       href="{{ path('projects') }}"><i
+                                class="fa fa-university"></i> {{ "Төслүүд"|trans }}</a>
+                </li>
+
+                <li class="nav-item dropdown btn-group">
+                    <a class="nav-link dropdown-toggle dropdown"
+                       {% if id is defined and id == 3 %}active{% endif %}>
+                        <i class="fa fa-life-ring"></i> {{ "Тусламж"|trans }}<span class="caret"></span></a>
+                    <div class="dropdown-menu dropdown dropdown-primary" role="menu">
+
+                        {% for m in helpmenu %}
+                            <a class="dropdown-item" href="{{ path('advice', {'menu': m.id, 'page': 1}) }}">
+                                {% if app.request.locale == 'en' %} {{ m.nameEn }}{% else %}{{ m.name }} {% endif %} </a>
+                        {% endfor %}
+                    </div>
+                </li>
+
+                {% if is_granted('ROLE_USER') %}
+                    <li class="nav-item">
+                        <a href="{{ path('profile') }}" class="user">
+                            {% if app.user.img %}
+                                <img src="/{{ localstatfolder }}{{ app.user.img }}">
+                            {% else %}
+                                <img src="{{ asset('recource/user.png') }}">
+                            {% endif %}
+
+                            <i class="fa fa-bell user-alert"></i>
+                        </a>
+                        <a href="{{ path('profile') }}" class="user-resp">
+                            <i class="fa fa-user"></i> {{ app.user.username }}
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if id is not defined %}active{% endif %}"
+                           href="{{ path('fos_user_security_login') }}"><i class="fa fa-user"></i> {{ 'Нэвтрэх'|trans }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if id is defined and id == 5 %}active{% endif %}"
+                           href="{{ path('fos_user_registration_register') }}"><i class="fa fa-user-plus"></i>
+                            {{ 'Бүртгүүлэх'|trans }}</a>
+                    </li>
+                {% endif %}
+
+                <li class="nav-item dropdown btn-group">
+                    <a class="nav-link dropdown-toggle dropdown">
+                        {% if app.request.locale == 'en' %} <img
+                                src="{{ asset('recource/flags-master/src/flags/United-Kingdom/24.png') }}"> {% else %}
+                            <img src="{{ asset('recource/flags-master/src/flags/Mongolia/24.png') }}"> {% endif %} <span
+                                class="caret"></span></a>
+                    <div class="dropdown-menu dropdown dropdown-primary" role="menu">
+                        <a class="dropdown-item  switch_lang" href="#">{% if app.request.locale == 'en' %} <img
+                                    src="{{ asset('recource/flags-master/src/flags/Mongolia/24.png') }}"> Монгол {% else %}
+                                <img src="{{ asset('recource/flags-master/src/flags/United-Kingdom/24.png') }}"> English {% endif %}
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</navbar>

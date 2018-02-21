@@ -1,0 +1,29 @@
+{% extends 'happyWebBundle:Layout:base.html.twig' %}
+{% block ogtag %}
+    <meta property="og:url" content="http://test.mcf4u.com">
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="{{ advice.name }}"/>
+    <meta property="og:description" content="{{ advice.headline }}"/>
+    <meta property="og:image" content="http://test.mcf4u.com/{{ statfolder }}{{ advice.img }}"/>
+{% endblock %}
+
+{% block body %}
+    <div class="project-type-background">
+        <div class="container">
+
+            <h3>{{ advice.name }}</h3>
+            <iframe frameborder="0" allowtransparency="true"
+                    style="border:none; overflow:hidden; width:130px; height:21px;"
+                    scrolling="no"
+                    src="//www.facebook.com/plugins/like.php?href={{ url('advice_detail',{ 'id':  advice.id}) }}&amp;width=130&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=21&amp;appId=1490690757893701"></iframe>
+
+
+            {{ advice.describe|raw }}
+
+
+            <div class="fb-comments" data-href="{{ url('advice_detail',{ 'id':  advice.id}) }}" data-width="100%"
+                 data-numposts="8"></div>
+        </div>
+
+    </div>
+{% endblock %}

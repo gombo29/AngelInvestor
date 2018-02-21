@@ -1,0 +1,49 @@
+{% extends 'happyCmsBundle::base.html.twig' %}
+{% block pageheader %}Мэдээний дэлгэрэнгүй{% endblock %}
+{% block body %}
+    {% include ':inc:flashmsg.html.twig' %}
+
+    <table class="table table-hover table-striped">
+        <tbody>
+        <tr>
+            <td>
+                Зураг
+            </td>
+            <td>
+                {% if user.img %} <img src="{{ weburl }}{{ statfolder }}{{ user.img }}" width="100">
+                {% else %}
+                    <img src="{{ asset('recource/user.png') }}" width="100">
+
+                {% endif %}
+               </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Нэвтрэх нэр</td>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <td>Овог нэр</td>
+            <td>{{ user.lName }} {{ user.fName }}</td>
+        </tr>
+
+        <tr>
+            <td>email</td>
+            <td>{{ user.email }}</td>
+        </tr>
+
+        <tr>
+            <td>Утас</td>
+            <td>{{ user.phoneNumber }}</td>
+        </tr>
+        <tr>
+            <td>Хөрөнгө оруулагч эсэх</td>
+            <td>{%  if   user.isInvestor == 1%}Тийм{% else %}Үгүй{% endif %}</td>
+        </tr>
+
+
+        </tbody>
+    </table>
+
+    <a style="float: right" href="{{ path('cms_user_index') }}">Буцах</a>
+{% endblock %}
